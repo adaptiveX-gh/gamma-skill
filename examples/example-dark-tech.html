@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Revolution Presentation</title>
+    <style id="theme-styles">
+        /* BASE STYLES - ALWAYS APPLIED */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* SVG Background Container */
+        .bg-graphics {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .presentation-container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide {
+            display: none;
+            width: min(90vw, 1200px);
+            height: min(85vh, 800px);
+            padding: min(8vw, 80px);
+            border-radius: clamp(10px, 2vw, 30px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: clamp(1rem, 3vw, 2rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            margin-bottom: clamp(0.8rem, 2vw, 1.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
+        }
+
+        p, li {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            line-height: 1.6;
+            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        ul, ol {
+            padding-left: clamp(1rem, 3vw, 2rem);
+        }
+
+        li {
+            margin-bottom: clamp(0.5rem, 1vw, 0.8rem);
+        }
+
+        .emoji-icon {
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            display: inline-block;
+        }
+
+        /* LAYOUT COMPONENTS */
+
+        /* Grid layouts */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(1rem, 2vw, 2rem);
+            margin-top: clamp(1rem, 2vw, 2rem);
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 2vw, 2rem);
+            margin-top: clamp(1rem, 2vw, 2rem);
+        }
+
+        .grid-auto {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(1rem, 2vw, 2rem);
+            margin-top: clamp(1rem, 2vw, 2rem);
+        }
+
+        .card {
+            border-radius: clamp(8px, 1vw, 16px);
+            padding: clamp(1rem, 2vw, 2rem);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: clamp(0.5rem, 1vw, 1rem);
+        }
+
+        /* Two-column layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 4vw, 4rem);
+            align-items: center;
+        }
+
+        /* Quote slide */
+        .quote-container {
+            text-align: center;
+            padding: clamp(2rem, 4vw, 4rem);
+        }
+
+        .quote-text {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-style: italic;
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            line-height: 1.4;
+        }
+
+        .quote-author {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            opacity: 0.8;
+        }
+
+        /* Image + text */
+        .image-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: clamp(8px, 1vw, 16px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin: clamp(1rem, 2vw, 2rem) 0;
+        }
+
+        /* Center content */
+        .center-content {
+            text-align: center;
+        }
+
+        /* Navigation */
+        .nav-dots {
+            position: absolute;
+            top: 50%;
+            right: clamp(10px, 2vw, 30px);
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: clamp(8px, 1vw, 12px);
+            height: clamp(8px, 1vw, 12px);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-button {
+            position: absolute;
+            bottom: clamp(20px, 3vh, 40px);
+            border: none;
+            padding: clamp(10px, 1.5vw, 20px) clamp(20px, 3vw, 40px);
+            border-radius: clamp(20px, 3vw, 40px);
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-button.prev {
+            left: clamp(20px, 3vw, 40px);
+        }
+
+        .nav-button.next {
+            right: clamp(20px, 3vw, 40px);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .slide {
+                width: 95vw;
+                height: 90vh;
+                padding: 5vw;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: clamp(1rem, 2vw, 2rem);
+            }
+
+            .grid-2x2,
+            .grid-3col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1920px) {
+            h1 { font-size: 4.5rem; }
+            h2 { font-size: 3rem; }
+            h3 { font-size: 2rem; }
+            p, li { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Background Graphics (injected by theme) -->
+    <div class="bg-graphics" id="bgGraphics"></div>
+
+    <div class="presentation-container">
+        <div class="nav-dots" id="dots"></div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="center-content">
+                <div class="emoji-icon">🚀</div>
+                <h1>The AI Revolution</h1>
+                <p>Transforming Healthcare in 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <h2>Healthcare Challenges Today</h2>
+            <ul>
+                <li>Physician burnout affects 60% of doctors</li>
+                <li>Medical errors cost $20B annually</li>
+                <li>Patient wait times average 3+ hours</li>
+                <li>Administrative tasks consume 50% of doctor time</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: AI Solution -->
+        <div class="slide">
+            <div class="two-column">
+                <div>
+                    <h2>AI-Powered Healthcare</h2>
+                    <p>Advanced machine learning algorithms analyze patient data in real-time, providing instant insights and reducing diagnostic errors.</p>
+                    <ul>
+                        <li>99.4% diagnostic accuracy</li>
+                        <li>Instant patient data analysis</li>
+                        <li>24/7 monitoring capabilities</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="image-placeholder">Image: AI analyzing medical scans</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Key Features -->
+        <div class="slide">
+            <h2>Revolutionary Features</h2>
+            <div class="grid-3col">
+                <div class="card">
+                    <div class="emoji-icon">🔮</div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Forecast health risks before symptoms appear</p>
+                </div>
+                <div class="card">
+                    <div class="emoji-icon">⚡</div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Continuous patient vitals tracking</p>
+                </div>
+                <div class="card">
+                    <div class="emoji-icon">🤖</div>
+                    <h3>Smart Automation</h3>
+                    <p>Automate routine administrative tasks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Impact -->
+        <div class="slide">
+            <h2>Measurable Impact</h2>
+            <div class="grid-2x2">
+                <div class="card">
+                    <div class="emoji-icon">📊</div>
+                    <h3>45% Faster</h3>
+                    <p>Diagnosis time reduced</p>
+                </div>
+                <div class="card">
+                    <div class="emoji-icon">💰</div>
+                    <h3>$8M Saved</h3>
+                    <p>Annual cost reduction</p>
+                </div>
+                <div class="card">
+                    <div class="emoji-icon">🎯</div>
+                    <h3>92% Satisfaction</h3>
+                    <p>Patient happiness score</p>
+                </div>
+                <div class="card">
+                    <div class="emoji-icon">⭐</div>
+                    <h3>10K+ Lives</h3>
+                    <p>Improved patient outcomes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Quote -->
+        <div class="slide">
+            <div class="quote-container">
+                <div class="quote-text">"AI in healthcare isn't replacing doctors – it's empowering them to be superhuman."</div>
+                <div class="quote-author">— Dr. Sarah Chen, Chief Medical Officer</div>
+            </div>
+        </div>
+
+        <!-- Slide 7: CTA -->
+        <div class="slide">
+            <div class="center-content">
+                <div class="emoji-icon">💡</div>
+                <h1>Ready to Transform?</h1>
+                <p>Join 500+ hospitals using AI-powered healthcare</p>
+                <p style="margin-top: 2rem; font-size: clamp(1.2rem, 3vw, 1.6rem);">Schedule your demo today</p>
+            </div>
+        </div>
+
+        <button class="nav-button prev" onclick="changeSlide(-1)">←</button>
+        <button class="nav-button next" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        // THEME SYSTEM - DETECTS THEME PARAMETER
+        const THEMES = {
+            'Dark Tech': {
+                bodyBg: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+                slideBg: 'linear-gradient(135deg, #0f3460 0%, #16213e 100%)',
+                slideColor: '#e8e8e8',
+                h1Gradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
+                h2Color: '#f0f0f0',
+                textColor: '#d0d0d0',
+                cardBg: 'rgba(168, 85, 247, 0.15)',
+                cardBorder: '1px solid rgba(168, 85, 247, 0.3)',
+                dotBg: 'rgba(168, 85, 247, 0.4)',
+                dotActiveBg: '#a855f7',
+                buttonBg: 'rgba(168, 85, 247, 0.9)',
+                buttonColor: '#ffffff',
+                buttonHoverBg: '#a855f7',
+                accentColor: '#a855f7',
+                imageBg: 'rgba(168, 85, 247, 0.1)',
+                quoteBorder: '4px solid #a855f7',
+                svgGraphic: `
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.2" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,100 Q250,50 500,100 T1000,100 L1000,150 L0,150 Z" fill="url(#purpleGrad)">
+                            <animate attributeName="d"
+                                dur="8s"
+                                repeatCount="indefinite"
+                                values="M0,100 Q250,50 500,100 T1000,100 L1000,150 L0,150 Z;
+                                        M0,100 Q250,150 500,100 T1000,100 L1000,150 L0,150 Z;
+                                        M0,100 Q250,50 500,100 T1000,100 L1000,150 L0,150 Z"/>
+                        </path>
+                        <path d="M0,200 Q300,250 600,200 T1200,200 L1200,250 L0,250 Z" fill="url(#purpleGrad)" opacity="0.5">
+                            <animate attributeName="d"
+                                dur="10s"
+                                repeatCount="indefinite"
+                                values="M0,200 Q300,250 600,200 T1200,200 L1200,250 L0,250 Z;
+                                        M0,200 Q300,150 600,200 T1200,200 L1200,250 L0,250 Z;
+                                        M0,200 Q300,250 600,200 T1200,200 L1200,250 L0,250 Z"/>
+                        </path>
+                        <circle cx="10%" cy="20%" r="3" fill="#a855f7" opacity="0.6">
+                            <animate attributeName="cy" dur="6s" repeatCount="indefinite" values="20%;25%;20%" />
+                        </circle>
+                        <circle cx="85%" cy="70%" r="4" fill="#ec4899" opacity="0.5">
+                            <animate attributeName="cy" dur="7s" repeatCount="indefinite" values="70%;65%;70%" />
+                        </circle>
+                    </svg>
+                `
+            }
+        };
+
+        // Apply Dark Tech theme for this example
+        const selectedTheme = 'Dark Tech';
+        const theme = THEMES[selectedTheme];
+
+        // INJECT THEME STYLES
+        function applyTheme(t) {
+            const style = document.createElement('style');
+            style.textContent = `
+                body {
+                    background: ${t.bodyBg};
+                }
+
+                .slide {
+                    background: ${t.slideBg};
+                    color: ${t.slideColor};
+                }
+
+                h1 {
+                    background: ${t.h1Gradient};
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                }
+
+                h2 {
+                    color: ${t.h2Color};
+                }
+
+                h3 {
+                    color: ${t.h2Color};
+                }
+
+                p, li {
+                    color: ${t.textColor};
+                }
+
+                .card {
+                    background: ${t.cardBg};
+                    border: ${t.cardBorder};
+                }
+
+                .dot {
+                    background: ${t.dotBg};
+                }
+
+                .dot.active {
+                    background: ${t.dotActiveBg};
+                    transform: scale(1.5);
+                }
+
+                .nav-button {
+                    background: ${t.buttonBg};
+                    color: ${t.buttonColor};
+                }
+
+                .nav-button:hover {
+                    background: ${t.buttonHoverBg};
+                }
+
+                .image-placeholder {
+                    background: ${t.imageBg};
+                    border: ${t.cardBorder};
+                    color: ${t.textColor};
+                }
+
+                .quote-container {
+                    border-left: ${t.quoteBorder};
+                    padding-left: clamp(1rem, 2vw, 2rem);
+                }
+
+                .quote-text {
+                    color: ${t.h2Color};
+                }
+
+                .quote-author {
+                    color: ${t.textColor};
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Inject SVG background
+            document.getElementById('bgGraphics').innerHTML = t.svgGraphic;
+        }
+
+        applyTheme(theme);
+
+        // UNIFIED SLIDE NAVIGATION SYSTEM
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // Create navigation dots
+        const dotsContainer = document.getElementById('dots');
+        for(let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+
+            slides[currentSlide].classList.add('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+
+            updateNavButtons();
+        }
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+
+            currentSlide = index;
+
+            slides[currentSlide].classList.add('active');
+            document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            const prevBtn = document.querySelector('.nav-button.prev');
+            const nextBtn = document.querySelector('.nav-button.next');
+
+            prevBtn.textContent = currentSlide === 0 ? '←' : '← Back';
+            nextBtn.textContent = currentSlide === totalSlides - 1 ? 'Finish' : 'Next →';
+        }
+
+        // Keyboard navigation (arrow keys, space, enter)
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                changeSlide(1);
+            }
+            if(e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            }
+            // Home/End keys
+            if(e.key === 'Home') {
+                e.preventDefault();
+                goToSlide(0);
+            }
+            if(e.key === 'End') {
+                e.preventDefault();
+                goToSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/swipe support with improved detection
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchmove', e => {
+            touchEndX = e.touches[0].clientX;
+            touchEndY = e.touches[0].clientY;
+        });
+
+        document.addEventListener('touchend', e => {
+            const deltaX = touchStartX - touchEndX;
+            const deltaY = Math.abs(touchStartY - touchEndY);
+
+            // Only trigger if horizontal swipe is greater than vertical
+            if(Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
+                if(deltaX > 0) {
+                    changeSlide(1); // Swipe left = next
+                } else {
+                    changeSlide(-1); // Swipe right = previous
+                }
+            }
+        });
+
+        // Initialize
+        updateNavButtons();
+
+        // Auto-scale for very small or very large screens
+        function checkScale() {
+            const container = document.querySelector('.presentation-container');
+            const slide = document.querySelector('.slide.active');
+
+            if(slide && window.innerWidth < 400) {
+                slide.style.fontSize = '14px';
+            } else if(slide) {
+                slide.style.fontSize = '';
+            }
+        }
+
+        window.addEventListener('resize', checkScale);
+        checkScale();
+    </script>
+</body>
+</html>
