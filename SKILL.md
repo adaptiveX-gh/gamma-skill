@@ -2,13 +2,6 @@
 name: gamma-presentation
 description: Create stunning Gamma AI-style presentations with 4 professional themes (Dark Tech, Corporate, Minimal, Playful). Auto-scaling responsive design with beautiful animations.
 license: Complete terms in LICENSE.txt
----
-
-# gamma-presentation
-
-Create beautiful, professional presentations with auto-scaling responsive design.
-
----
 metadata:
   outputType: html
   streaming: true
@@ -34,6 +27,10 @@ parameters:
     max: 12
     description: Number of slides to generate
 ---
+
+# gamma-presentation
+Create beautiful, professional presentations with auto-scaling responsive design.
+
 
 # Gamma Presentation Generator
 
