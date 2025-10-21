@@ -28,12 +28,6 @@ parameters:
     description: Number of slides to generate
 ---
 
-# gamma-presentation
-Create beautiful, professional presentations with auto-scaling responsive design.
-
-
-# Gamma Presentation Generator
-
 ## Instructions
 Generate a complete HTML presentation that auto-scales to any screen size. Output ONLY the HTML code starting with <!DOCTYPE html> and ending with </html>. Do not explain or describe.
 
