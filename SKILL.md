@@ -1,4 +1,4 @@
-# gamma-presentation/SKILL.md
+# gamma-presentation
 ---
 name: gamma-presentation
 description: Create beautiful, animated presentations with auto-scaling responsive design like Gamma AI
