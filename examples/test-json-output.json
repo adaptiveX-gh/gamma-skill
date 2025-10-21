@@ -1,0 +1,73 @@
+{
+  "title": "AI Revolution in Healthcare",
+  "subtitle": "Transforming Patient Care Through Intelligence",
+  "theme": "dark-tech",
+  "slides": [
+    {
+      "type": "title",
+      "emoji": "🏥",
+      "heading": "AI Revolution in Healthcare",
+      "subheading": "Transforming Patient Care Through Intelligence"
+    },
+    {
+      "type": "bullets",
+      "heading": "The Challenge",
+      "items": [
+        "Rising healthcare costs globally",
+        "Shortage of medical professionals",
+        "Delayed diagnosis and treatment",
+        "Administrative burden on staff"
+      ]
+    },
+    {
+      "type": "grid-2x2",
+      "heading": "AI-Powered Solutions",
+      "cards": [
+        {"title": "Diagnostics", "content": "ML models detect diseases earlier with 95% accuracy"},
+        {"title": "Personalization", "content": "Tailored treatment plans based on patient data"},
+        {"title": "Automation", "content": "Reduce admin tasks by 60% freeing staff time"},
+        {"title": "Prediction", "content": "Forecast patient outcomes and prevent complications"}
+      ]
+    },
+    {
+      "type": "two-column",
+      "heading": "Traditional vs AI-Powered",
+      "left": {
+        "title": "Traditional Approach",
+        "items": [
+          "Manual diagnosis process",
+          "Generic treatment plans",
+          "Reactive care model"
+        ]
+      },
+      "right": {
+        "title": "AI-Powered Approach",
+        "items": [
+          "Automated early detection",
+          "Personalized treatments",
+          "Predictive prevention"
+        ]
+      }
+    },
+    {
+      "type": "numbered",
+      "heading": "Implementation Roadmap",
+      "steps": [
+        {"number": "01", "title": "Data Integration", "description": "Consolidate patient records into unified system"},
+        {"number": "02", "title": "Model Training", "description": "Train AI on anonymized historical data"},
+        {"number": "03", "title": "Clinical Validation", "description": "Test with medical professionals in controlled trials"}
+      ]
+    },
+    {
+      "type": "quote",
+      "quote": "AI in healthcare isn't about replacing doctors, it's about empowering them with superhuman capabilities.",
+      "author": "Dr. Eric Topol, Cardiologist & Digital Medicine Expert"
+    },
+    {
+      "type": "conclusion",
+      "heading": "The Future is Now",
+      "message": "Join the healthcare AI revolution and transform patient outcomes",
+      "submessage": "Contact us to start your AI transformation journey"
+    }
+  ]
+}

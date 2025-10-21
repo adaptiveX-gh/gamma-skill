@@ -1,0 +1,129 @@
+{
+  "dark-tech": {
+    "name": "Dark Tech",
+    "className": "theme-dark-tech",
+    "description": "Modern technology aesthetic with dark gradients and purple/magenta accents",
+    "emojis": ["🚀", "🤖", "💻", "⚡", "🔮", "🎯", "💎", "🌐", "🔬", "⚙️"],
+    "tone": "technical, innovative, forward-thinking",
+    "colors": {
+      "bg-primary": "#0a0a0f",
+      "bg-secondary": "#1a0a1f",
+      "accent-1": "#d946ef",
+      "accent-2": "#a855f7",
+      "accent-3": "#6b21a8",
+      "text-primary": "#ffffff",
+      "text-secondary": "#e0d4f7",
+      "text-muted": "#a78bca"
+    },
+    "useCases": [
+      "Tech presentations",
+      "Product launches",
+      "Innovation showcases",
+      "Software demos",
+      "AI/ML content"
+    ]
+  },
+  "corporate": {
+    "name": "Corporate",
+    "className": "theme-corporate",
+    "description": "Professional business style with navy/blue colors and clean lines",
+    "emojis": ["📊", "💼", "📈", "🎯", "⚙️", "🏆", "💡", "📋", "📅", "🤝"],
+    "tone": "professional, authoritative, data-driven",
+    "colors": {
+      "bg-primary": "#1e3a8a",
+      "bg-secondary": "#334155",
+      "accent-1": "#3b82f6",
+      "accent-2": "#60a5fa",
+      "text-primary": "#0f172a",
+      "text-secondary": "#475569"
+    },
+    "useCases": [
+      "Business reviews",
+      "Stakeholder presentations",
+      "Formal reports",
+      "Financial presentations",
+      "Strategy meetings"
+    ]
+  },
+  "minimal": {
+    "name": "Minimal",
+    "className": "theme-minimal",
+    "description": "Clean, sophisticated design with maximum whitespace",
+    "emojis": ["✓", "→", "•", "○", "◆", "✦", "∴", "←", "↗", "✨"],
+    "tone": "elegant, simple, clarity-focused",
+    "colors": {
+      "bg-primary": "#ffffff",
+      "bg-secondary": "#f8fafc",
+      "accent-1": "#10b981",
+      "text-primary": "#0f172a",
+      "text-secondary": "#475569",
+      "text-muted": "#64748b"
+    },
+    "useCases": [
+      "Design presentations",
+      "Portfolios",
+      "Philosophical content",
+      "Brand presentations",
+      "Clean messaging"
+    ]
+  },
+  "playful": {
+    "name": "Playful",
+    "className": "theme-playful",
+    "description": "Vibrant, energetic style with multi-color gradients",
+    "emojis": ["🎨", "🎉", "🌈", "⭐", "🎪", "🎭", "🎸", "🎮", "🎲", "🎈"],
+    "tone": "energetic, fun, creative, engaging",
+    "colors": {
+      "color-orange": "#f59e0b",
+      "color-pink": "#ec4899",
+      "color-purple": "#8b5cf6",
+      "color-blue": "#3b82f6",
+      "color-green": "#10b981",
+      "text-primary": "#1f2937",
+      "text-secondary": "#4b5563"
+    },
+    "useCases": [
+      "Creative pitches",
+      "Educational content",
+      "Fun products",
+      "Event presentations",
+      "Engaging storytelling"
+    ]
+  },
+  "slideLayouts": {
+    "title": {
+      "template": "center-content",
+      "supports": ["emoji", "heading", "subheading"]
+    },
+    "bullets": {
+      "template": "content",
+      "supports": ["heading", "items"]
+    },
+    "grid-2x2": {
+      "template": "grid-2x2",
+      "supports": ["heading", "cards"],
+      "cardCount": 4
+    },
+    "grid-3col": {
+      "template": "grid-3col",
+      "supports": ["heading", "cards"],
+      "cardCount": 3
+    },
+    "two-column": {
+      "template": "split-layout",
+      "supports": ["heading", "left", "right"]
+    },
+    "quote": {
+      "template": "quote-slide",
+      "supports": ["quote", "author"]
+    },
+    "numbered": {
+      "template": "numbered-sections",
+      "supports": ["heading", "steps"]
+    },
+    "conclusion": {
+      "template": "center-content",
+      "supports": ["heading", "message", "submessage"]
+    }
+  }
+}
